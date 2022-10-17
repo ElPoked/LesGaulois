@@ -19,7 +19,7 @@ public class Romain {
 		public String toString() {
 			return this.nom;
 		}
-	};
+	}
 
 	public void equipement() {
 		System.out.println("Les �quipement disponibles: ");
