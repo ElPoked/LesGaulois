@@ -3,32 +3,11 @@ package personnages;
 public class Romain {
 	private String nom;
 	private int force;
-	private Equipement[][] equipement;
+	private Equipement[] equipements;
 	private int nbEquipement = 0;
 
-	private enum Equipement {
-		CASQUE("casque"), BOUCLIER("bouclier");
-
-		private String nom;
-
-		private Equipement(String nom) {
-			this.nom = nom;
-		}
-
-		@Override
-		public String toString() {
-			return this.nom;
-		}
-	}
-
-	public void equipement() {
-		System.out.println("Les �quipement disponibles: ");
-		for (Equipement equipement : Equipement.values()) {
-			System.out.println("-" + equipement);
-		}
-	}
-
 	public Romain(String nom, int force) {
+		this.equipements = new Equipement[2];
 		this.nom = nom;
 		this.force = force;
 		assert force > 0;
@@ -51,7 +30,7 @@ public class Romain {
 		assert this.force > 0;
 		force2 = this.force - forceCoup;
 		if (this.force > 0) {
-			this.parler("A�e");
+			this.parler("Aïe");
 			assert this.force > force2;
 
 		} else {
@@ -64,13 +43,37 @@ public class Romain {
 		return "Romain [nom=" + this.nom + ", force=" + this.force + "]";
 	}
 
-	public static void main(String[] arg) {
-		Romain mercurius;
-		mercurius = new Romain("Mercurius", 6);
-		mercurius.equipement();
-		mercurius.parler("me frappe pas!");
-		mercurius.recevoirCoup(3);
+	public void sEquiper(Equipement equipement) {
+		switch (this.nbEquipement) {
+		case 2: {
+			System.out.println("Le soldat " + this.nom + " est bien équiper");
+			break;
+		}
+		case 1: {
+			if (this.equipements[0] == equipement) {
+				System.out.println("Le soldat " + this.nom + " possède déjà un " + equipement);
+				break;
+			}
+		}
+		default:
+			this.equipements[this.nbEquipement] = equipement;
+			this.nbEquipement += 1;
+			System.out.println("Le soldat " + this.nom + " s'équipe d'un " + equipement);
+			break;
+		}
+	}
 
+	public static void main(String[] arg) {
+		Romain brutus;
+		brutus = new Romain("Brutus", 6);
+		System.out.println(Equipement.CASQUE);
+		System.out.println(Equipement.BOUCLIER);
+		brutus.parler("me frappe pas!");
+		brutus.recevoirCoup(3);
+		brutus.sEquiper(Equipement.CASQUE);
+		brutus.sEquiper(Equipement.CASQUE);
+		brutus.sEquiper(Equipement.BOUCLIER);
+		brutus.sEquiper(Equipement.CASQUE);
 	}
 
 }
